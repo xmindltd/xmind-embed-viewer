@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>XMind Embed Viewer (Development)</title>
+</head>
+<body>
+</body>
+<script src="main.js"></script>
+<script>
+  const init = async () => {
+    const container = document.createElement('div')
+    document.body.append(container)
+    const res = await fetch('/test-1.xmind')
+    const viewer = new XMindEmbedViewer({
+      el: container,
+      file: await res.arrayBuffer(),
+      styles: {
+        'height': '500px',
+        'width': '100%'
+      }
+    })
+    viewer.addEventListener('sheet-switch', (payload) => {
+      console.log('sheet-switch', payload)
+    })
+    viewer.addEventListener('zoom-scale-change', (payload) => {
+      console.log('zoom-scale-change', payload)
+    })
+    viewer.addEventListener('sheets-change', (payload) => {
+      console.log('sheets-change', payload)
+    })
+    viewer.addEventListener('map-ready', (payload) => {
+      console.log('map-ready', payload)
+    })
+    window.viewer = viewer
+
+    fetch('/test-2.xmind').then(async res => {
+      window.file2 = await res.arrayBuffer()
+    })
+    fetch('/test-1.xmind').then(async res => {
+      window.file1 = await res.arrayBuffer()
+    })
+  }
+  init()
+</script>
+</html>
