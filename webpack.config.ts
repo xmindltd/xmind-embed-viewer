@@ -3,11 +3,6 @@ import { Configuration } from 'webpack'
 
 const commonConfig: Partial<Configuration> = {
   entry: './src/index.ts',
-  module: {
-    rules: [
-      {test: /\.tsx?$/, loader: 'ts-loader'}
-    ]
-  },
   resolve: {
     extensions: ['.js', '.ts'],
   },
@@ -40,7 +35,18 @@ const config: Configuration[] = [
       https: false,
     },
     plugins: [
-    ]
+    ],
+    module: {
+      rules: [
+        {
+          test: /\.tsx?$/,
+          loader: 'ts-loader',
+          options: {
+            configFile : 'tsconfig.esm.json'
+          }
+        }
+      ]
+    },
   },
   {
     ...commonConfig,
@@ -56,6 +62,17 @@ const config: Configuration[] = [
     },
     plugins: [
     ],
+    module: {
+      rules: [
+        {
+          test: /\.tsx?$/,
+          loader: 'ts-loader',
+          options: {
+            configFile : 'tsconfig.umd.json'
+          }
+        }
+      ]
+    },
     optimization: {
       minimize: true
     }

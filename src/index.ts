@@ -1,9 +1,25 @@
 import { IframeEventChannelController } from './channel-controller'
 import { IframeController } from './iframe-controller'
 
+interface Sheet {
+  id: string
+  title: string
+}
+
+interface XMindEmbedViewerState {
+  sheets: Sheet[]
+  zoomScale: number
+  currentSheetId: string
+}
+
 export class XMindEmbedViewer {
   protected iframeController: IframeController
   protected iframeEventChannelController: IframeEventChannelController
+  protected internalState: XMindEmbedViewerState = {
+    sheets: [],
+    zoomScale: 100,
+    currentSheetId: ''
+  }
 
   /**
    * Initialize a iframe element from a div/iframe html element.
@@ -26,10 +42,14 @@ export class XMindEmbedViewer {
     this.iframeController = iframeController
     this.iframeEventChannelController = iframeEventChannelController
 
+    iframeEventChannelController.addEventListener<string>('sheet-switch', payload => this.internalState.currentSheetId = payload)
+    iframeEventChannelController.addEventListener<number>('zoom-scale-change', payload => this.internalState.zoomScale = payload)
+    iframeEventChannelController.addEventListener<Sheet[]>('sheets-change', payload => this.internalState.sheets = payload)
+
     this.iframeController.setStyles(styles)
 
     if (file) {
-      this.openFile(file)
+      this.load(file)
     }
   }
 
@@ -61,7 +81,19 @@ export class XMindEmbedViewer {
   /**
    * Load a file for embed viewer after iframe ready.
    */
-  openFile(file: ArrayBuffer): void {
+  load(file: ArrayBuffer): void {
     this.iframeEventChannelController.emit('open-file', file)
+  }
+
+  get zoomScale() {
+    return this.internalState.zoomScale
+  }
+
+  get sheets() {
+    return JSON.parse(JSON.stringify(this.internalState.sheets))
+  }
+
+  get currentSheetId() {
+    return this.internalState.currentSheetId
   }
 }
