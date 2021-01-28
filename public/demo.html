@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>XMind Embed Viewer (Development)</title>
+</head>
+<body>
+</body>
+<script src="xmind-embed-viewer.js"></script>
+<script>
+  const init = async () => {
+
+    const container = document.createElement('div')
+    document.body.append(container)
+    const res = await fetch('/test-1.xmind')
+    const viewer = new XMindEmbedViewer({
+      el: container,
+      file: await res.arrayBuffer(),
+      styles: {
+        'height': '500px',
+        'width': '100%'
+      }
+    })
+
+    const eventLogsElement = document.createElement('div')
+    eventLogsElement.style.height = '500px'
+    eventLogsElement.style.overflow = 'scroll'
+
+    const log = (type, message) => eventLogsElement.innerHTML += `<div style="margin-top: 8px">[${type}] ${typeof message === 'object' && message? JSON.stringify(message, null, 2) : message }</div>`
+
+    viewer.addEventListener('sheet-switch', payload => log('event: sheet-switch', payload))
+    viewer.addEventListener('zoom-scale-change', payload => log('event: zoom-scale-change', payload))
+    viewer.addEventListener('sheets-change', payload => log('event: sheets-change', payload))
+    viewer.addEventListener('map-ready', payload => log('event: map-ready', payload))
+
+    const loadFile1Button = document.createElement('button')
+    loadFile1Button.textContent = 'Load File 1'
+    loadFile1Button.addEventListener('click', async () => {
+      const res = await fetch('/test-1.xmind')
+      viewer.openFile(await res.arrayBuffer())
+    })
+
+    const loadFile2Button = document.createElement('button')
+    loadFile2Button.textContent = 'Load File 2'
+    loadFile2Button.addEventListener('click', async () => {
+      const res = await fetch('/test-2.xmind')
+      viewer.openFile(await res.arrayBuffer())
+    })
+
+    document.body.appendChild(loadFile1Button)
+    document.body.appendChild(loadFile2Button)
+    document.body.appendChild(eventLogsElement)
+
+    window.viewer = viewer
+  }
+
+  init()
+</script>
+</html>

@@ -1,0 +1,23 @@
+stages:
+  - test
+  - deploy
+
+test:
+  stage: test
+  image: node:14.15.4-alpine
+  script:
+    - npm install
+    - npm run test
+
+pages:
+  image: node:14.15.4-alpine
+  stage: deploy
+  only:
+    - master
+  script:
+    - npm install
+    - npm run build
+    - cp -Rp dist/umd/* public/
+  artifacts:
+    paths:
+      - public
