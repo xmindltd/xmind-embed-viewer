@@ -8,6 +8,25 @@
 </body>
 <script src="xmind-embed-viewer.js"></script>
 <script>
+  const selectFileFromLocal = async (ext) => {
+    const fileSelector = document.createElement('input')
+    fileSelector.style.display = 'none'
+    document.body.appendChild(fileSelector)
+    await new Promise(resolve => {
+      fileSelector.setAttribute('type', 'file')
+      fileSelector.setAttribute('accept', ext)
+      fileSelector.addEventListener('change', () => {
+        resolve()
+      })
+      fileSelector.click()
+    }).finally(() => {
+      document.body.removeChild(fileSelector)
+    })
+    if (!fileSelector.files || !fileSelector.files.length) {
+      return
+    }
+    return fileSelector.files[0]
+  }
   const init = async () => {
 
     const container = document.createElement('div')
@@ -47,8 +66,17 @@
       viewer.openFile(await res.arrayBuffer())
     })
 
+    const loadFileFromComputerButton = document.createElement('button')
+    loadFileFromComputerButton.textContent = 'Open Local File'
+    loadFileFromComputerButton.addEventListener('click', async () => {
+      const file = await selectFileFromLocal('.xmind')
+      if (!file) return
+      viewer.openFile(await file.arrayBuffer())
+    })
+
     document.body.appendChild(loadFile1Button)
     document.body.appendChild(loadFile2Button)
+    document.body.appendChild(loadFileFromComputerButton)
     document.body.appendChild(eventLogsElement)
 
     window.viewer = viewer
