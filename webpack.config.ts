@@ -1,5 +1,5 @@
 import * as path from 'path'
-import { Configuration, EnvironmentPlugin } from 'webpack'
+import { Configuration } from 'webpack'
 
 const commonConfig: Partial<Configuration> = {
   entry: './src/index.ts',
@@ -40,10 +40,6 @@ const config: Configuration[] = [
       https: false,
     },
     plugins: [
-      new EnvironmentPlugin({
-        'EMBED_VIEWER_URL': process?.env['EMBED_VIEWER_URL'] || 'https://beta.xmind.net/embed',
-        'EMBED_VIEWER_DOMAIN': process?.env['EMBED_VIEWER_DOMAIN'] || 'https://beta.xmind.net'
-      })
     ]
   },
   {
@@ -59,10 +55,6 @@ const config: Configuration[] = [
       filename: 'xmind-embed-viewer.js'
     },
     plugins: [
-      new EnvironmentPlugin({
-        'EMBED_VIEWER_URL': process?.env['EMBED_VIEWER_URL'] || 'https://beta.xmind.net/embed',
-        'EMBED_VIEWER_DOMAIN': process?.env['EMBED_VIEWER_DOMAIN'] || 'https://beta.xmind.net'
-      })
     ],
     optimization: {
       minimize: true

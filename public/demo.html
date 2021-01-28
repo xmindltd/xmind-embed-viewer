@@ -12,7 +12,7 @@
 
     const container = document.createElement('div')
     document.body.append(container)
-    const res = await fetch('/test-1.xmind')
+    const res = await fetch('test-1.xmind')
     const viewer = new XMindEmbedViewer({
       el: container,
       file: await res.arrayBuffer(),
@@ -36,14 +36,14 @@
     const loadFile1Button = document.createElement('button')
     loadFile1Button.textContent = 'Load File 1'
     loadFile1Button.addEventListener('click', async () => {
-      const res = await fetch('/test-1.xmind')
+      const res = await fetch('test-1.xmind')
       viewer.openFile(await res.arrayBuffer())
     })
 
     const loadFile2Button = document.createElement('button')
     loadFile2Button.textContent = 'Load File 2'
     loadFile2Button.addEventListener('click', async () => {
-      const res = await fetch('/test-2.xmind')
+      const res = await fetch('test-2.xmind')
       viewer.openFile(await res.arrayBuffer())
     })
 
