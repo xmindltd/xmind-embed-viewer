@@ -85,6 +85,16 @@ export class XMindEmbedViewer {
     this.iframeEventChannelController.emit('open-file', file)
   }
 
+  setZoomScale(zoomScale: number) {
+    this.iframeEventChannelController.emit('zoom', zoomScale)
+  }
+  setFitMap() {
+    this.iframeEventChannelController.emit('fit-map')
+  }
+  switchSheet(sheetId: string) {
+    this.iframeEventChannelController.emit('switch-sheet', sheetId)
+  }
+
   get zoomScale() {
     return this.internalState.zoomScale
   }

@@ -13,6 +13,7 @@ export class IframeController {
     iframe.setAttribute('frameborder', '0')
     iframe.setAttribute('scrolling', 'no')
     iframe.setAttribute('allowfullscreen', 'true')
+    iframe.setAttribute('allow', 'allowfullscreen')
     iframe.setAttribute('crossorigin', 'anonymous')
     iframe.setAttribute('src', src)
 

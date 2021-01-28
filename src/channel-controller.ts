@@ -54,7 +54,7 @@ export class IframeEventChannelController {
     this.handlers[event].splice(index, 1)
   }
 
-  async emit<T = any>(event: string, payload: T) {
+  async emit<T = any>(event: string, payload?: T) {
     await this.channelSetupPromise
     const replyEvent = `xmind-embed-viewer#${this.eventIndex++}`
     await new Promise(resolve => {
