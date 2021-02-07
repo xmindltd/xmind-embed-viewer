@@ -43,8 +43,8 @@ export class XMindEmbedViewer {
     this.iframeEventChannelController = iframeEventChannelController
 
     iframeEventChannelController.addEventListener<string>('sheet-switch', payload => this.internalState.currentSheetId = payload)
-    iframeEventChannelController.addEventListener<number>('zoom-scale-change', payload => this.internalState.zoomScale = payload)
-    iframeEventChannelController.addEventListener<Sheet[]>('sheets-change', payload => this.internalState.sheets = payload)
+    iframeEventChannelController.addEventListener<number>('zoom-change', payload => this.internalState.zoomScale = payload)
+    iframeEventChannelController.addEventListener<Sheet[]>('sheets-load', payload => this.internalState.sheets = payload)
 
     this.iframeController.setStyles(styles)
 
@@ -58,9 +58,9 @@ export class XMindEmbedViewer {
    *
    * Available events:
    * - map-ready
-   * - zoom-scale-changed
+   * - zoom-change
    * - sheet-switch
-   * - sheets-change
+   * - sheets-load
    *
    */
   addEventListener(event: string, callback: (args: any) => any): void {
@@ -95,7 +95,7 @@ export class XMindEmbedViewer {
     this.iframeEventChannelController.emit('switch-sheet', sheetId)
   }
 
-  get zoomScale() {
+  get zoom() {
     return this.internalState.zoomScale
   }
 

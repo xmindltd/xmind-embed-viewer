@@ -40,8 +40,8 @@ viewer.removeEventListener('event-name', callback)
 ```
 #### Available events:
 * map-ready
-* zoom-scale-changed
+* zoom-change
 * sheet-switch
-* sheets-change
+* sheets-load
 
 ## License
