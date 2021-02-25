@@ -5,6 +5,23 @@
   <title>XMind Embed Viewer (Development)</title>
 </head>
 <body>
+<div style="max-width: 1280px">
+  <p>The earliest known appearance of the phrase is from <i><a href="/wiki/The_Boston_Journal" title="The Boston Journal">The
+    Boston Journal</a></i>. In an article titled "Current Notes" in the February 9, 1885, edition, the phrase is mentioned
+    as a good practice <a href="/wiki/Sentence_(linguistics)" title="Sentence (linguistics)">sentence</a> for writing
+    students: "A favorite copy set by writing teachers for their pupils is the following, because it contains every letter
+    of the alphabet: 'A quick brown fox jumps over the lazy dog.'"<sup id="cite_ref-2" class="reference"><a
+      href="#cite_note-2">[2]</a></sup> Dozens of other newspapers published the phrase over the next few months, all
+    using the version of the sentence starting with "A" rather than "The".<sup id="cite_ref-:0_3-0" class="reference"><a
+      href="#cite_note-:0-3">[3]</a></sup> The earliest known use of the phrase starting with "The" is from the 1888 book
+    <i>Illustrative Shorthand</i> by Linda Bronson.<sup id="cite_ref-4" class="reference"><a
+      href="#cite_note-4">[4]</a></sup> The modern form (starting with "The") became more common despite the fact that it
+    is slightly longer than the original (starting with "A").
+  </p>
+  <div id="mount">
+
+  </div>
+</div>
 </body>
 <script src="xmind-embed-viewer.js"></script>
 <script>
@@ -29,8 +46,7 @@
   }
   const init = async () => {
 
-    const container = document.createElement('div')
-    document.body.append(container)
+    const container = document.querySelector('#mount')
     const res = await fetch('test-1.xmind')
     const viewer = new XMindEmbedViewer({
       el: container,
@@ -45,7 +61,7 @@
     eventLogsElement.style.height = '500px'
     eventLogsElement.style.overflow = 'scroll'
 
-    const log = (type, message) => eventLogsElement.innerHTML += `<div style="margin-top: 8px">[${type}] ${typeof message === 'object' && message? JSON.stringify(message, null, 2) : message }</div>`
+    const log = (type, message) => eventLogsElement.innerHTML += `<div style="margin-top: 8px">[${type}] ${typeof message === 'object' && message ? JSON.stringify(message, null, 2) : message}</div>`
 
     viewer.addEventListener('sheet-switch', payload => log('event: sheet-switch', payload))
     viewer.addEventListener('zoom-scale-change', payload => log('event: zoom-scale-change', payload))
