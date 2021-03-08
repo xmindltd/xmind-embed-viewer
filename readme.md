@@ -16,7 +16,7 @@ const viewer = new XMindEmbedViewer({
 
 #### Load file into viewer
 ```typescript
-// Download remote file and load into the viewer isntance
+// Download remote file and load into the viewer instance
 fetch('test-1.xmind')
   .then(res => res.arrayBuffer())
   .then(file => viewer.load(file))
