@@ -13,6 +13,12 @@
     "dev": "webpack serve --config-name dev",
     "lint": "eslint src --ext .ts"
   },
+  "maintainers": [
+    {
+      "name": "zhiteng",
+      "email": "dyingsunlight@gmail.com"
+    }
+  ],
   "dependencies": {},
   "devDependencies": {
     "@types/node": "^14.14.22",

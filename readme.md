@@ -2,7 +2,7 @@
 Use XMind share to present your `.xmind` files on your blog or website.
 
 ### Example
-[Demo](https://zhiteng.pages.xmind.cn/xmind-embed-viewer/)
+[Demo](https://xmindltd.github.io/xmind-embed-viewer/)
 
 ## Document
 #### Initialization
