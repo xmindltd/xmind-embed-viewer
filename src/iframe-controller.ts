@@ -3,7 +3,12 @@ export class IframeController {
 
   constructor(target: HTMLElement | HTMLIFrameElement | string, src: string) {
     let iframe: HTMLIFrameElement
-    const element = typeof target === 'string' ? document.querySelector(target) : target
+    const element: HTMLElement | null = typeof target === 'string' ? document.querySelector(target) : target
+
+    if (element === null) {
+      throw new Error('IFrame or mount element not found by selector ' + target)
+    }
+
     if (element instanceof HTMLIFrameElement) {
       iframe = element
     } else {

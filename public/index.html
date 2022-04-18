@@ -49,7 +49,7 @@
     const container = document.querySelector('#mount')
     const res = await fetch('test-1.xmind')
     const viewer = new XMindEmbedViewer({
-      el: container,
+      el: '#mount',
       file: await res.arrayBuffer(),
       styles: {
         'height': '500px',
