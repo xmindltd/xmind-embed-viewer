@@ -8,7 +8,7 @@
     "./dist"
   ],
   "scripts": {
-    "publish": "npm run lint && npm run build",
+    "prepare": "npm run lint && npm run build",
     "build": "webpack --config-name prod-umd && tsc -p tsconfig.esm.json",
     "dev": "webpack serve --config-name dev",
     "lint": "eslint src --ext .ts"

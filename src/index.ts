@@ -25,7 +25,7 @@ export class XMindEmbedViewer {
    * Initialize a iframe element from a div/iframe html element.
    */
   constructor(args: {
-    el: HTMLElement | HTMLIFrameElement;
+    el: HTMLElement | HTMLIFrameElement | string;
     styles?: Partial<CSSStyleDeclaration>
     file?: ArrayBuffer;
   }) {

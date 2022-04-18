@@ -5,13 +5,19 @@
 
 ## Document
 #### Initialization
+Install the package or reference the umd file.
+```bash
+npm i xmind-embed-viewer
+```
 ```typescript
 import { XMindEmbedViewer } from 'xmind-embed-viewer'
 // Intialize a viewer isntance
 const viewer = new XMindEmbedViewer({
-  el: document.querySelector('#container-or-iframe')
+  el: '#container-or-iframe', // HTMLElement | HTMLIFrameElement | string
 })
 ```
+see also demo [here](./public/index.html)
+
 ### Methods
 
 #### Load file into viewer

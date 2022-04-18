@@ -1,8 +1,9 @@
 export class IframeController {
   protected iframe: HTMLIFrameElement
 
-  constructor(element: HTMLElement | HTMLIFrameElement, src: string) {
+  constructor(target: HTMLElement | HTMLIFrameElement | string, src: string) {
     let iframe: HTMLIFrameElement
+    const element = typeof target === 'string' ? document.querySelector(target) : target
     if (element instanceof HTMLIFrameElement) {
       iframe = element
     } else {
