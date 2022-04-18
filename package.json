@@ -1,13 +1,13 @@
 {
   "name": "xmind-embed-viewer",
-  "version": "1.0.1",
+  "version": "1.0.5",
   "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
   "browser": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "typings": "dist/esm/index.d.ts",
   "files": [
-    "./dist"
+    "dist/**/*"
   ],
   "scripts": {
     "prepare": "npm run lint && npm run build",
