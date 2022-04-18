@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>XMind Embed Viewer (Development)</title>
+</head>
+<body>
+<div style="max-width: 1280px">
+  <p>The earliest known appearance of the phrase is from <i><a href="/wiki/The_Boston_Journal" title="The Boston Journal">The
+    Boston Journal</a></i>. In an article titled "Current Notes" in the February 9, 1885, edition, the phrase is mentioned
+    as a good practice <a href="/wiki/Sentence_(linguistics)" title="Sentence (linguistics)">sentence</a> for writing
+    students: "A favorite copy set by writing teachers for their pupils is the following, because it contains every letter
+    of the alphabet: 'A quick brown fox jumps over the lazy dog.'"<sup id="cite_ref-2" class="reference"><a
+      href="#cite_note-2">[2]</a></sup> Dozens of other newspapers published the phrase over the next few months, all
+    using the version of the sentence starting with "A" rather than "The".<sup id="cite_ref-:0_3-0" class="reference"><a
+      href="#cite_note-:0-3">[3]</a></sup> The earliest known use of the phrase starting with "The" is from the 1888 book
+    <i>Illustrative Shorthand</i> by Linda Bronson.<sup id="cite_ref-4" class="reference"><a
+      href="#cite_note-4">[4]</a></sup> The modern form (starting with "The") became more common despite the fact that it
+    is slightly longer than the original (starting with "A").
+  </p>
+  <div id="mount">
+
+  </div>
+</div>
+</body>
+<script src="xmind-embed-viewer.js"></script>
+<script>
+  const selectFileFromLocal = async (ext) => {
+    const fileSelector = document.createElement('input')
+    fileSelector.style.display = 'none'
+    document.body.appendChild(fileSelector)
+    await new Promise(resolve => {
+      fileSelector.setAttribute('type', 'file')
+      fileSelector.setAttribute('accept', ext)
+      fileSelector.addEventListener('change', () => {
+        resolve()
+      })
+      fileSelector.click()
+    }).finally(() => {
+      document.body.removeChild(fileSelector)
+    })
+    if (!fileSelector.files || !fileSelector.files.length) {
+      return
+    }
+    return fileSelector.files[0]
+  }
+  const init = async () => {
+
+    const container = document.querySelector('#mount')
+    const res = await fetch('test-1.xmind')
+    const viewer = new XMindEmbedViewer({
+      el: '#mount',
+      file: await res.arrayBuffer(),
+      styles: {
+        'height': '500px',
+        'width': '100%'
+      }
+    })
+
+    const eventLogsElement = document.createElement('div')
+    eventLogsElement.style.height = '500px'
+    eventLogsElement.style.overflow = 'scroll'
+
+    const log = (type, message) => eventLogsElement.innerHTML += `<div style="margin-top: 8px">[${type}] ${typeof message === 'object' && message ? JSON.stringify(message, null, 2) : message}</div>`
+
+    viewer.addEventListener('sheet-switch', payload => log('event: sheet-switch', payload))
+    viewer.addEventListener('zoom-scale-change', payload => log('event: zoom-scale-change', payload))
+    viewer.addEventListener('sheets-change', payload => log('event: sheets-change', payload))
+    viewer.addEventListener('map-ready', payload => log('event: map-ready', payload))
+
+    const loadFile1Button = document.createElement('button')
+    loadFile1Button.textContent = 'Load File 1'
+    loadFile1Button.addEventListener('click', async () => {
+      const res = await fetch('test-1.xmind')
+      viewer.load(await res.arrayBuffer())
+    })
+
+    const loadFile2Button = document.createElement('button')
+    loadFile2Button.textContent = 'Load File 2'
+    loadFile2Button.addEventListener('click', async () => {
+      const res = await fetch('test-2.xmind')
+      viewer.load(await res.arrayBuffer())
+    })
+
+    const loadFileFromComputerButton = document.createElement('button')
+    loadFileFromComputerButton.textContent = 'Open Local File'
+    loadFileFromComputerButton.addEventListener('click', async () => {
+      const file = await selectFileFromLocal('.xmind')
+      if (!file) return
+      viewer.load(await file.arrayBuffer())
+    })
+
+    document.body.appendChild(loadFile1Button)
+    document.body.appendChild(loadFile2Button)
+    document.body.appendChild(loadFileFromComputerButton)
+
+    const zoomScaleInput = document.createElement('input')
+    zoomScaleInput.setAttribute('type', 'number')
+    zoomScaleInput.placeholder = 'Zoom Scale'
+    const zoomScaleConfirm = document.createElement('button')
+    zoomScaleConfirm.textContent = 'Update Zoom Scale'
+    zoomScaleConfirm.addEventListener('click', () => viewer.setZoomScale(parseInt(zoomScaleInput.value)))
+    const fitMapButton = document.createElement('button')
+    fitMapButton.textContent = 'Zoom Scale Fit Map'
+    fitMapButton.addEventListener('click', () => viewer.setFitMap())
+
+    document.body.appendChild(zoomScaleInput)
+    document.body.appendChild(zoomScaleConfirm)
+    document.body.appendChild(fitMapButton)
+
+
+    const sheetIdInput = document.createElement('input')
+    sheetIdInput.placeholder = 'Target Sheet Id'
+    const sheetIdConfirm = document.createElement('button')
+    sheetIdConfirm.textContent = 'Switch to Sheet Id'
+    sheetIdConfirm.addEventListener('click', () => viewer.switchSheet(sheetIdInput.value))
+    document.body.appendChild(sheetIdInput)
+    document.body.appendChild(sheetIdConfirm)
+
+    // const requestFullscreenButton = document.createElement('button')
+    // requestFullscreenButton.textContent = 'Enter Fullscreen'
+    // requestFullscreenButton.addEventListener('click', () => viewer.requestFullscreen())
+    // const exitFullscreenButton = document.createElement('button')
+    // exitFullscreenButton.textContent = 'Exit Fullscreen'
+    // exitFullscreenButton.addEventListener('click', () => viewer.exitFullscreen())
+    // const toggleFullscreenButton = document.createElement('button')
+    // toggleFullscreenButton.textContent = 'Toggle Fullscreen'
+    // toggleFullscreenButton.addEventListener('click', () => viewer.exitFullscreen())
+    // document.body.appendChild(requestFullscreenButton)
+    // document.body.appendChild(exitFullscreenButton)
+    // document.body.appendChild(toggleFullscreenButton)
+
+    document.body.appendChild(eventLogsElement)
+
+    window.viewer = viewer
+  }
+
+  init()
+</script>
+</html>
