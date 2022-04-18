@@ -1,14 +1,17 @@
 # XMind Embed Viewer
+Use XMind share to present your `.xmind` files on your blog or website.
 
-## Quick start
+### Example
 [Demo](https://zhiteng.pages.xmind.cn/xmind-embed-viewer/)
 
 ## Document
 #### Initialization
-Install the package or reference the umd file.
+Install the package or reference the umd module.
+##### Install
 ```bash
 npm i xmind-embed-viewer
 ```
+##### Use module
 ```typescript
 import { XMindEmbedViewer } from 'xmind-embed-viewer'
 // Intialize a viewer isntance
@@ -16,7 +19,7 @@ const viewer = new XMindEmbedViewer({
   el: '#container-or-iframe', // HTMLElement | HTMLIFrameElement | string
 })
 ```
-see also demo [here](./public/index.html)
+see also demo source code [here](./public/index.html).
 
 ### Methods
 
