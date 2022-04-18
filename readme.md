@@ -51,3 +51,4 @@ viewer.removeEventListener('event-name', callback)
 * sheets-load
 
 ## License
+This project is licensed under the MIT License - see [LICENSE.md](LICENSE.md) file for details.
