@@ -1,7 +1,9 @@
 {
   "name": "xmind-embed-viewer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/esm/index.js",
+  "module": "dist/esm/index.js",
+  "browser": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "typings": "dist/esm/index.d.ts",
   "files": [
@@ -19,6 +21,22 @@
       "email": "dyingsunlight@gmail.com"
     }
   ],
+  "keywords": [
+    "xmind",
+    "mindmap",
+    "mindmaps",
+    "mindmap-viewer"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xmindltd/xmind-embed-viewer.git"
+  },
+  "bugs": {
+    "url" : "https://github.com/xmindltd/xmind-embed-viewer/issues",
+    "email" : "dyingsunlight@gmail.com"
+  },
+  "homepage": "https://github.com/xmindltd/xmind-embed-viewer",
+  "license": "MIT",
   "dependencies": {},
   "devDependencies": {
     "@types/node": "^14.14.22",
