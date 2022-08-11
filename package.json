@@ -1,6 +1,6 @@
 {
   "name": "xmind-embed-viewer",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
   "browser": "dist/esm/index.js",
@@ -32,8 +32,8 @@
     "url": "https://github.com/xmindltd/xmind-embed-viewer.git"
   },
   "bugs": {
-    "url" : "https://github.com/xmindltd/xmind-embed-viewer/issues",
-    "email" : "dyingsunlight@gmail.com"
+    "url": "https://github.com/xmindltd/xmind-embed-viewer/issues",
+    "email": "dyingsunlight@gmail.com"
   },
   "homepage": "https://github.com/xmindltd/xmind-embed-viewer",
   "license": "MIT",
