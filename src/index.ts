@@ -36,8 +36,8 @@ export class XMindEmbedViewer {
       }
     } = args
 
-    const iframeController = new IframeController(el, 'https://www.xmind.net/embed-viewer')
-    const iframeEventChannelController = new IframeEventChannelController(iframeController, 'https://www.xmind.net')
+    const iframeController = new IframeController(el, 'https://www.xmind.app/embed-viewer')
+    const iframeEventChannelController = new IframeEventChannelController(iframeController, 'https://www.xmind.app')
 
     this.iframeController = iframeController
     this.iframeEventChannelController = iframeEventChannelController
