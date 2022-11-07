@@ -28,15 +28,17 @@ export class XMindEmbedViewer {
     el: HTMLElement | HTMLIFrameElement | string;
     styles?: Partial<CSSStyleDeclaration>
     file?: ArrayBuffer;
+    isPitchModeDisabled?: boolean
   }) {
     const {
       file, el, styles = {
         'height': '350px',
-        'width': '750px'
-      }
+        'width': '750px',
+      },
+      isPitchModeDisabled
     } = args
 
-    const iframeController = new IframeController(el, 'https://www.xmind.app/embed-viewer')
+    const iframeController = new IframeController(el, `https://www.xmind.app/embed-viewer${ isPitchModeDisabled ? '?pitch-mode=disabled' : ''}`)
     const iframeEventChannelController = new IframeEventChannelController(iframeController, 'https://www.xmind.app')
 
     this.iframeController = iframeController
