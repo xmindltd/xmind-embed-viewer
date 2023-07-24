@@ -46,11 +46,12 @@
   }
   const init = async () => {
 
-    const container = document.querySelector('#mount')
+    const region = new URL(window.location.href).searchParams.get('region')
     const res = await fetch('test-1.xmind')
     const viewer = new XMindEmbedViewer({
       el: '#mount',
       file: await res.arrayBuffer(),
+      region: region === 'cn' ? 'cn' : 'global',
       styles: {
         'height': '500px',
         'width': '100%'
@@ -117,18 +118,16 @@
     document.body.appendChild(sheetIdInput)
     document.body.appendChild(sheetIdConfirm)
 
-    // const requestFullscreenButton = document.createElement('button')
-    // requestFullscreenButton.textContent = 'Enter Fullscreen'
-    // requestFullscreenButton.addEventListener('click', () => viewer.requestFullscreen())
-    // const exitFullscreenButton = document.createElement('button')
-    // exitFullscreenButton.textContent = 'Exit Fullscreen'
-    // exitFullscreenButton.addEventListener('click', () => viewer.exitFullscreen())
-    // const toggleFullscreenButton = document.createElement('button')
-    // toggleFullscreenButton.textContent = 'Toggle Fullscreen'
-    // toggleFullscreenButton.addEventListener('click', () => viewer.exitFullscreen())
-    // document.body.appendChild(requestFullscreenButton)
-    // document.body.appendChild(exitFullscreenButton)
-    // document.body.appendChild(toggleFullscreenButton)
+
+    const switchRegionButton = document.createElement('button')
+    switchRegionButton.textContent = region === 'cn' ? 'Switch to global' : '页面速度慢？切到国内源'
+    switchRegionButton.title = region === 'cn' ? '' : '具体如何初始化切换请查看 readme.md 或者 html 代码。'
+    switchRegionButton.addEventListener('click', () => {
+      const url = new URL(window.location.href)
+      url.searchParams.set('region', region === 'cn' ? 'global' : 'cn')
+      window.location.href = url.toString()
+    })
+    document.body.appendChild(switchRegionButton)
 
     document.body.appendChild(eventLogsElement)
 
