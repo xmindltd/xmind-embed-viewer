@@ -20,6 +20,7 @@ export class XMindEmbedViewer {
     zoomScale: 100,
     currentSheetId: ''
   }
+  readonly region: 'cn' | 'global'
 
   /**
    * Initialize a iframe element from a div/iframe html element.
@@ -29,20 +30,26 @@ export class XMindEmbedViewer {
     styles?: Partial<CSSStyleDeclaration>
     file?: ArrayBuffer;
     isPitchModeDisabled?: boolean
+    region?: 'cn' | 'global'
   }) {
     const {
-      file, el, styles = {
+      file,
+      el,
+      region = 'global',
+      styles = {
         'height': '350px',
         'width': '750px',
       },
       isPitchModeDisabled
     } = args
 
-    const iframeController = new IframeController(el, `https://www.xmind.app/embed-viewer${ isPitchModeDisabled ? '?pitch-mode=disabled' : ''}`)
-    const iframeEventChannelController = new IframeEventChannelController(iframeController, 'https://www.xmind.app')
+    const domain = region === 'cn' ? 'www.xmind.cn' : 'www.xmind.app'
+    const iframeController = new IframeController(el, `https://${domain}/embed-viewer${ isPitchModeDisabled ? '?pitch-mode=disabled' : ''}`)
+    const iframeEventChannelController = new IframeEventChannelController(iframeController, `https://${domain}`)
 
     this.iframeController = iframeController
     this.iframeEventChannelController = iframeEventChannelController
+    this.region = region
 
     iframeEventChannelController.addEventListener<string>('sheet-switch', payload => this.internalState.currentSheetId = payload)
     iframeEventChannelController.addEventListener<number>('zoom-change', payload => this.internalState.zoomScale = payload)

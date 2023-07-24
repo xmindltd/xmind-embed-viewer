@@ -21,6 +21,8 @@ Or alternatively from `unpkg`/`jsdelivr` with a script tag as a UMD bundle
 ```typescript
 const viewer = new XMindEmbedViewer({
   el: '#container-or-iframe-selector', // HTMLElement | HTMLIFrameElement | string
+  // 如果在中国大陆境内速度慢，可以添加的参数 `region: 'cn'` 改为使用 xmind.cn 的图库作为依赖。
+  // region: 'cn' //optinal, global(default) or cn
 })
 fetch('test-1.xmind')
   .then(res => res.arrayBuffer())
